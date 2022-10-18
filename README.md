@@ -1,1 +1,2 @@
 # ACTIVIDAD-2.3
+En esta actividad se busca el ordammiento y la busqueda de datos la cuál es registrada en una bitacora, por mes, dia, hora y segundo. Para el correcto funcinamiento se ocuparon clases y metodos de ordemamiento, así como de busqueda.
