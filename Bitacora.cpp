@@ -20,7 +20,6 @@ void Bitacora::lecturaDatos(std::string fileName){
     }
     else{
         while(!inputFile.eof()){
-                // to-do validar que la longitud de month sea mayor a cero
                 std::getline(inputFile, month, ' ');
                 std::getline(inputFile, day, ' ');
                 std::getline(inputFile, hour, ':');
@@ -33,8 +32,6 @@ void Bitacora::lecturaDatos(std::string fileName){
                 Registro tmpReg(month, day, hour, minute, second, ipAdd, port, message);
                 // agregar el objeto al vector
                 listaRegistros.addLast(tmpReg);
-                // std::cout<<listaRegistros.getNumElements()<<std::endl;
-                // NOTA: Asegurate de que el .txt no tenga ningun renglon de mas, podria generar Registros fantasma sin mes :)
         }
             
 
@@ -74,7 +71,7 @@ DoubleLinkedList<Registro> Bitacora::getList(){
 
 void Bitacora::setUpRf1(){
     std::string month, day, hour, minute, second;
-    std::getline(std::cin, month, ' ');// la idea original era usar el espacio, pero por alguna razon no toma en cuenta el segundo token y pierde toda la información, (Preguntar al profe por que pasa eso)
+    std::getline(std::cin, month, ' ');
     std::getline(std::cin, day, ' ');
     std::getline(std::cin, hour, ':');
     std::getline(std::cin, minute, ':');
@@ -90,7 +87,6 @@ void Bitacora::setUpRf2(){
     std::getline(std::cin, hour, ':');
     std::getline(std::cin, minute, ':');
     std::getline(std::cin, second);
-    // crear un objeto de la clase Registro
     Registro tmpReg(month, day, hour, minute, second);
     Rf2=tmpReg;
 }
@@ -103,7 +99,6 @@ Registro Bitacora::getRf2(){
 }
 
 void Bitacora::writeSearchReslt(std::string arch){
-        // Aqui guardamos el registro final
     DoubleLinkedList<Registro> regFinal;
     DLLNode<Registro>* fin=lookUp(Rf2);
     DLLNode<Registro>* inicio=lookUp(Rf1);
@@ -117,6 +112,8 @@ void Bitacora::writeSearchReslt(std::string arch){
         }
         
     }
+    
+//Escribimos nuestro txt
     inicio=regFinal.getHead();
     std::ofstream archivo(arch);
     if (!archivo.is_open()){

@@ -124,11 +124,11 @@ void DoubleLinkedList<T>::addFirst(T value){
 // Complejidad O(n)
 template <class T>
 void DoubleLinkedList<T>::addLast(T value){
+    // Si la lista esta vacia -> if(head == nullptr)
     if(numElements == 0){
         addFirst(value);
     }
     else{
-        // creando un nuevo nodo de la lista
         DLLNode<T> *newDLLNode = new DLLNode<T>(value);
         tail->next = newDLLNode;
         newDLLNode->prev = tail;
@@ -140,16 +140,19 @@ void DoubleLinkedList<T>::addLast(T value){
 template <class T>
 bool DoubleLinkedList<T>::deleteData(T value){
     bool estado = false;
+    // Si la lista esta vacia
     if(numElements == 0){
         return estado;
     }
     else{
         DLLNode<T> *p = head;
         DLLNode<T> *prev = nullptr;
+        // Buscar value en la lista
         while(p != nullptr && p->data != value){
             prev = p;
             p = p->next;
         }
+        // si no existe value en la lista
         if(p == nullptr){
             return estado;
         }
@@ -158,11 +161,11 @@ bool DoubleLinkedList<T>::deleteData(T value){
             if(head != nullptr)
                 head->prev = nullptr;
         }
-        else if(p->next == nullptr){
+        else if(p->next == nullptr){ 
             prev->next = nullptr;
             tail = prev;
         }
-        else{
+        else{ 
             prev->next = p->next;
             p->next->prev = p->prev;
         }
@@ -178,7 +181,7 @@ bool DoubleLinkedList<T>::deleteAt(int position){
     if(position < 0 || position >= numElements){
         throw std::out_of_range("Indice fuera de rango");
     }
-    else if(position == 0){ 
+    else if(position == 0){
         DLLNode<T> *p = head;
         if(head != nullptr && head->next == nullptr){
             head = nullptr;
@@ -192,19 +195,21 @@ bool DoubleLinkedList<T>::deleteAt(int position){
         numElements--;
         return true;
     }
-    else{
+    else{ // Si posicion > 0
         DLLNode<T> *p = head, *q = nullptr;
         int index = 0;
+        // Buscar el indice en la lista
         while(index != position){
             q = p;
             p = p->next;
             index++;
         }
+        // si debo borrar el ultimo elemento
         if(p->next == nullptr){
             q->next = nullptr;
             tail = q;
         }
-        else{
+        else{ // Cualquier otro elemento en medio de la lista
             q->next = p->next;
             p->next->prev = q;
         }
@@ -240,10 +245,12 @@ void DoubleLinkedList<T>::updateData(T value, T newValue){
     if(numElements > 0){
         DLLNode<T> *p = head;
         DLLNode<T> *prev = nullptr;
+        // Buscar value en lista
         while (p != nullptr && p->data != value){
             prev = p;
             p = p->next;
         }
+        // Si existe value en la lista
         if(p != nullptr)
             p->data = newValue;
         else
@@ -280,6 +287,7 @@ int DoubleLinkedList<T>::findData(T value){
             p = p->next;
             index++;
         }
+
       if(p != nullptr)
          return  index;
       else
@@ -288,6 +296,7 @@ int DoubleLinkedList<T>::findData(T value){
 //Complejidad O(n²)
 template <class T>
 void DoubleLinkedList<T>::operator=(const DoubleLinkedList<T> &other){
+    // Lista = other;
     this->clearMemory();
     DLLNode<T>*p=other.head;
     while (p!=nullptr)
@@ -295,8 +304,7 @@ void DoubleLinkedList<T>::operator=(const DoubleLinkedList<T> &other){
         this->addLast(p->data);
         p=p->next;
     }
-}
-//Ordenamiento
+} 
 template <class T>
 void DoubleLinkedList<T>::sort(){
         head=mergeSort(head);
@@ -307,6 +315,7 @@ void DoubleLinkedList<T>::invert(){
 }
 template <class T>
 DoubleLinkedList<T> DoubleLinkedList<T>::getReversedSubList(int inicio,int fin){
+    // sort();
     DoubleLinkedList<T> temp;
     
     DLLNode<T>* p=findNode(inicio);
@@ -347,14 +356,18 @@ DLLNode<T>* DoubleLinkedList<T>::findNode(int i){
 
 template <class T>
 DLLNode<T>* DoubleLinkedList<T>::merge(DLLNode<T>* first,DLLNode<T>* second){
-    if(!first)
+
+    // Por si first esta vacia
+    if (!first)
     {
         return second;
     }
+    // Por si second esta vacia
     if (!second)
     {
         return first;
     }
+    // Si el valor es menor
     if (first->data<second->data)
     {
         first->next=merge(first->next,second);
@@ -378,8 +391,12 @@ template <class T>
         return head ; 
      DLLNode<T>*second,*first; 
      second=split(head); 
+  
+    // Recur for left and right halves 
     first = mergeSort(head); 
     second = mergeSort(second); 
+  
+    // Merge the two sorted halves
      DLLNode<T>* sortedList=merge(first,second);
     return  sortedList;
 }

@@ -16,11 +16,8 @@ private:
     std::string ip;
     std::string puerto;
     std::string msg;
-    // usado para transformar fecha completa a segundos desde 1970
     std::vector<std::string> meses = {"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"};
-    // Struct que contiene todos los datos de la fecha-hora
     struct tm dateStruct;
-    // Unix timestamp (segundos transcurridos desde 00:00 hrs, Jan 1, 1970 UTC)
     time_t date;
 
 public:
